@@ -8,3 +8,6 @@
 
 
 - Story Map
+
+<img width="885" alt="storyMapYouQuiz" src="https://github.com/Alikhalif/QuizTime_spring-boot/blob/main/Story_Map.png">
+  
