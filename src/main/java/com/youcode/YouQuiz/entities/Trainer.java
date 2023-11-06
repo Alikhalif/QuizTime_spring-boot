@@ -1,6 +1,6 @@
 package com.youcode.YouQuiz.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,6 @@ public class Trainer extends User{
     @Column
     private String speciality;
 
-    @OneToMany(mappedBy = "trainer")
-    private List<Quiz> quizzes;
+    //@OneToMany(mappedBy = "trainer")
+    //private List<Quiz> quizzes;
 }

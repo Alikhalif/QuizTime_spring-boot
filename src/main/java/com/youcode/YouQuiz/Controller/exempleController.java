@@ -1,8 +1,6 @@
 package com.youcode.YouQuiz.Controller;
 
-import com.youcode.YouQuiz.entities.Subject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +12,4 @@ public class exempleController {
         return "ok";
     }
 
-    @PostMapping("/save")
-    public ResponseEntity saveSabject(@RequestBody Subject subject){
-
-        return ResponseEntity.ok(subject);
-    }
-}
+   }
