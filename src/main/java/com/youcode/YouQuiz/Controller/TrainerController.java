@@ -1,7 +1,6 @@
 package com.youcode.YouQuiz.Controller;
 
 import com.youcode.YouQuiz.Service.ImplService.TrainerServiceImpl;
-import com.youcode.YouQuiz.Service.TrainerService;
 import com.youcode.YouQuiz.dto.TrainerDto;
 import com.youcode.YouQuiz.entities.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +28,10 @@ public class TrainerController {
     @PutMapping("/{id}")
     public Trainer updateTrainer(@PathVariable Long id, @RequestBody TrainerDto trainerDto){
         return trainerService.update(id, trainerDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTrainer(@PathVariable Long id){
+        trainerService.delete(id);
     }
 }

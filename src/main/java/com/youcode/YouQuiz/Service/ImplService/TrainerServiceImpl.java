@@ -40,4 +40,8 @@ public class TrainerServiceImpl implements TrainerService {
         trainer.setSpeciality(trainerDto.getSpeciality());
         return trainerRepository.save(trainer);
     }
+
+    public void delete(Long id){
+        trainerRepository.deleteById(id);
+    }
 }
