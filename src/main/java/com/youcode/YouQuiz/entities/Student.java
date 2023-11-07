@@ -4,10 +4,8 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,8 +20,8 @@ public class Student extends User{
     private Long id;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfInscription;
+    private LocalDate dateInscription;
+
 
     @OneToMany(mappedBy = "student")
     private List<AssignQuiz> assignQuizzes;
