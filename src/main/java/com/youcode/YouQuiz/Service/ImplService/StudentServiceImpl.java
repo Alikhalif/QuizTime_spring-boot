@@ -55,4 +55,16 @@ public class StudentServiceImpl implements StudentService {
             }
         }
     }
+
+    public void delete(Long id){
+        if(studentRepository.existsById(id)){
+            studentRepository.deleteById(id);
+        }else {
+            try {
+                throw new EntityNotFoundException("Student not found with id : "+ id);
+            } catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
