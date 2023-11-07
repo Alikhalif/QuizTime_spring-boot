@@ -20,7 +20,7 @@ public class Answar {
     private Long id;
 
     @Column(nullable = false)
-    private String response;
+    private String answareText;
 
     @OneToMany(mappedBy = "answar", fetch = FetchType.LAZY)
     private List<Validation> validations;

@@ -17,7 +17,7 @@ public class StudentAnswar {
     private Long id;
 
     @Column
-    private Integer played;
+    private Double score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assign_id")
