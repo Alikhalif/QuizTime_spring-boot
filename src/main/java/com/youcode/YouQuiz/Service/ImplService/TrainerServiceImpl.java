@@ -7,6 +7,8 @@ import com.youcode.YouQuiz.repositories.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TrainerServiceImpl implements TrainerService {
 
@@ -21,5 +23,9 @@ public class TrainerServiceImpl implements TrainerService {
         trainer.setAddress(trainerDto.getAddress());
         trainer.setSpeciality(trainerDto.getSpeciality());
         return trainerRepository.save(trainer);
+    }
+
+    public List<Trainer> getAll(){
+        return trainerRepository.findAll();
     }
 }
