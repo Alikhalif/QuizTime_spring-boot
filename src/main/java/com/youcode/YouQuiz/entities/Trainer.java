@@ -21,6 +21,7 @@ public class Trainer extends User{
     @Column
     private String speciality;
 
-    //@OneToMany(mappedBy = "trainer")
-    //private List<Quiz> quizzes;
+    @OneToMany(mappedBy = "trainer")
+    private List<Quiz> quizzes;
+
 }

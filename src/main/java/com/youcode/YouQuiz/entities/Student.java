@@ -25,7 +25,7 @@ public class Student extends User{
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfInscription;
 
-    //@OneToMany(mappedBy = "student")
-    //private List<AssignQuiz> assignQuizzes;
+    @OneToMany(mappedBy = "student")
+    private List<AssignQuiz> assignQuizzes;
 
 }
