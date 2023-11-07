@@ -25,4 +25,9 @@ public class TrainerController {
     public List<Trainer> getAllTrainer(){
         return trainerService.getAll();
     }
+
+    @PutMapping("/{id}")
+    public Trainer updateTrainer(@PathVariable Long id, @RequestBody TrainerDto trainerDto){
+        return trainerService.update(id, trainerDto);
+    }
 }
