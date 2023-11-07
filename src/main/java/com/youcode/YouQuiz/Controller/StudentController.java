@@ -3,6 +3,7 @@ package com.youcode.YouQuiz.Controller;
 import com.youcode.YouQuiz.Service.ImplService.StudentServiceImpl;
 import com.youcode.YouQuiz.Service.StudentService;
 import com.youcode.YouQuiz.dto.StudentDto;
+import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +27,15 @@ public class StudentController {
     @GetMapping
     public List<StudentDto> getAllStudents(){
         return studentService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id, @RequestBody StudentDto studentDto){
+        StudentDto studentOne = studentService.getOne(id);
+        if(studentOne != null){
+            return new ResponseEntity<>(studentOne, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
