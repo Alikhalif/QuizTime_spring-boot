@@ -1,5 +1,6 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
+import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.Service.StudentService;
 import com.youcode.YouQuiz.dto.StudentDto;
 import com.youcode.YouQuiz.entities.Student;
@@ -37,5 +38,21 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getOne(Long id){
         Optional<Student> optionalStudent = studentRepository.findById(id);
         return optionalStudent.map(student -> modelMapper.map(student, StudentDto.class)).orElse(null);
+    }
+
+
+    public StudentDto update(Long id, StudentDto studentDto) {
+        if(studentRepository.existsById(id)){
+            Student student = modelMapper.map(studentDto, Student.class);
+            student.setId(id);
+            student = studentRepository.save(student);
+            return modelMapper.map(student, StudentDto.class);
+        }else {
+            try {
+                throw new EntityNotFoundException("Student Not Found with id : "+ id);
+            } catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

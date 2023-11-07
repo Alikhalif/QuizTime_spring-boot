@@ -30,10 +30,20 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id, @RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id){
         StudentDto studentOne = studentService.getOne(id);
         if(studentOne != null){
             return new ResponseEntity<>(studentOne, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto){
+        StudentDto studentUpdate = studentService.update(id,studentDto);
+        if(studentUpdate != null){
+            return new ResponseEntity<>(studentUpdate, HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
