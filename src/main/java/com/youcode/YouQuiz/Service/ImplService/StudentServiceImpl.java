@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -21,6 +24,13 @@ public class StudentServiceImpl implements StudentService {
         Student student = modelMapper.map(studentDto, Student.class);
         student = studentRepository.save(student);
         return modelMapper.map(student, StudentDto.class);
+    }
+
+    public List<StudentDto> getAll(){
+        List<Student> students = studentRepository.findAll();
+        return students.stream()
+                .map(student -> modelMapper.map(student, StudentDto.class))
+                .collect(Collectors.toList());
     }
 
 }
