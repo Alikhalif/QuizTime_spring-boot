@@ -53,4 +53,17 @@ public class QuizController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneQuiz(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Quiz", quizService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("erorr", "Quiz not found with id "+id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuizServiceImpl {
@@ -62,6 +63,14 @@ public class QuizServiceImpl {
 
     public List<QuizDto> getAll(){
         return Arrays.asList(modelMapper.map(quizRepository.findAll(), QuizDto[].class));
+    }
+
+    public Optional<QuizDto> getOne(Long id){
+        Optional<Quiz> quizOptional = quizRepository.findById(id);
+        return quizOptional.map(quiz ->{
+            QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
+            return Optional.ofNullable(quizDto);
+        }).orElseGet(Optional::empty);
     }
 
 
