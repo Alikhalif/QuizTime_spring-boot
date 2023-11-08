@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class LevelService {
+public class LevelServiceImpl {
 
     @Autowired
     private LevelRepository levelRepository;
@@ -28,5 +28,13 @@ public class LevelService {
 
     public List<LevelDto> getAll(){
         return Arrays.asList(modelMapper.map(levelRepository.findAll(), LevelDto[].class));
+    }
+
+    public Optional<LevelDto> getOne(Long id){
+        Optional<Level> levelOptional = levelRepository.findById(id);
+        return levelOptional.map(level -> {
+            LevelDto levelDto = modelMapper.map(levelOptional, LevelDto.class);
+            return Optional.ofNullable(levelDto);
+        }).orElseGet(Optional::empty);
     }
 }
