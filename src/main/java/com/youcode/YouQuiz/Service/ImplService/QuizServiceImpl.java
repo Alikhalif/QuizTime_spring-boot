@@ -22,5 +22,15 @@ public class QuizServiceImpl {
         return modelMapper.map(quiz, QuizDto.class);
     }
 
-
+    public void delete(Long id){
+        if (quizRepository.existsById(id)){
+            quizRepository.deleteById(id);
+        }else {
+            try{
+                throw new EntityNotFoundException("Quiz not found with id : "+id);
+            }catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
