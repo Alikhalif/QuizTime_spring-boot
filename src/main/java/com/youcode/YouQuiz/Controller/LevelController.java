@@ -53,5 +53,21 @@ public class LevelController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteLevel(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            levelServiceImpl.delete(id);
+            message.put("message", "Level deleted successfully");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("erorr", "Level not found with id "+id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }
 

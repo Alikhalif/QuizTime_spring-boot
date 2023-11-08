@@ -1,7 +1,10 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
+import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.dto.LevelDto;
+import com.youcode.YouQuiz.dto.StudentDto;
 import com.youcode.YouQuiz.entities.Level;
+import com.youcode.YouQuiz.entities.Student;
 import com.youcode.YouQuiz.repositories.LevelRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +40,18 @@ public class LevelServiceImpl {
             return Optional.ofNullable(levelDto);
         }).orElseGet(Optional::empty);
     }
+
+    public void delete(Long id){
+        if (levelRepository.existsById(id)){
+            levelRepository.deleteById(id);
+        }else {
+            try{
+                throw new EntityNotFoundException("Level not found with id : "+id);
+            }catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
 }
