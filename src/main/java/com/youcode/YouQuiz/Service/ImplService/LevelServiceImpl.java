@@ -53,5 +53,18 @@ public class LevelServiceImpl {
         }
     }
 
-
+    public LevelDto update(Long id, LevelDto levelDto) {
+        if(levelRepository.existsById(id)){
+            Level level = modelMapper.map(levelDto, Level.class);
+            level.setId(id);
+            Level level1 = levelRepository.save(level);
+            return modelMapper.map(level1, LevelDto.class);
+        }else {
+            try {
+                throw new EntityNotFoundException("Level Not Found with id : "+ id);
+            } catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
