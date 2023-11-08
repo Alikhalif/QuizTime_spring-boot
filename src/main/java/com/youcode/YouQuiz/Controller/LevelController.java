@@ -28,6 +28,18 @@ public class LevelController {
             message.put("erorr", "error in creat level");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
+    }
 
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllLevel(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Levels", levelService.getAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Not found !");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 }
+
