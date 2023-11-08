@@ -1,0 +1,20 @@
+package com.youcode.YouQuiz.Service.ImplService;
+
+import com.youcode.YouQuiz.Exception.EntityNotFoundException;
+import com.youcode.YouQuiz.dto.QuizDto;
+import com.youcode.YouQuiz.entities.Quiz;
+import com.youcode.YouQuiz.repositories.QuizRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class QuizServiceImpl {
+    @Autowired
+    private QuizRepository quizRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+
+}

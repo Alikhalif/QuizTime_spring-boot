@@ -23,7 +23,7 @@ public class Student extends User{
     private LocalDate dateInscription;
 
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AssignQuiz> assignQuizzes;
 
 }

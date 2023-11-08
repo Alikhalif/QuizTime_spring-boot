@@ -22,6 +22,6 @@ public class Answar {
     @Column(nullable = false)
     private String answareText;
 
-    @OneToMany(mappedBy = "answar", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "answar", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Validation> validations;
 }

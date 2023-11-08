@@ -12,4 +12,6 @@ public class QuizDto {
     private Boolean showFinalResults;
     private Integer chanceNum;
     private String remark;
+    private Long trainerId;
+    private Long assignQuizId;
 }

@@ -28,6 +28,6 @@ public class Validation {
     @JoinColumn(name = "answar_id")
     private Answar answar;
 
-    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudentAnswar> questionAnswerList;
 }

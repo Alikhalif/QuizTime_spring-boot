@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -38,8 +39,10 @@ public class Quiz implements Serializable {
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
-    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private AssignQuiz assignQuiz;
 
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TompQuiz> tompQuizs;
 
 }
