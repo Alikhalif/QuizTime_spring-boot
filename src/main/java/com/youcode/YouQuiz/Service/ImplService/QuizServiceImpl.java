@@ -16,5 +16,11 @@ public class QuizServiceImpl {
     @Autowired
     private ModelMapper modelMapper;
 
+    public QuizDto create(QuizDto quizDto){
+        Quiz quiz = modelMapper.map(quizDto, Quiz.class);
+        quiz = quizRepository.save(quiz);
+        return modelMapper.map(quiz, QuizDto.class);
+    }
+
 
 }

@@ -14,5 +14,11 @@ public class QuizController {
     @Autowired
     private QuizServiceImpl quizService;
 
+    @PostMapping
+    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto quizDto){
+        QuizDto quizCreated = quizService.create(quizDto);
+        return new ResponseEntity<>(quizCreated, HttpStatus.CREATED);
+    }
+
 
 }
