@@ -44,4 +44,17 @@ public class SubjectController {
         }
 
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneSubject(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Subject", subjectService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Subject Not Found !");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }

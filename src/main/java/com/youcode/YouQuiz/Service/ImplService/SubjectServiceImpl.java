@@ -39,4 +39,11 @@ public class SubjectServiceImpl implements SubjectService {
         subjectRepository.delete(subject);
     }
 
+    @Override
+    public SubjectDto getOne(Long id){
+        Subject subject = subjectRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("Subject not found with id "+id));
+        return modelMapper.map(subject, SubjectDto.class);
+    }
+
 }
