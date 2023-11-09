@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class SubjectDto {
     private Long id;
     private String title;
+    private Long parentId;
 }
