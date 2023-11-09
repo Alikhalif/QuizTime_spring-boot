@@ -72,4 +72,30 @@ public class QuestionServiceImpl implements QuestionService {
         return Arrays.asList(modelMapper.map(questionRepository.findAll(), QuestionDto[].class));
     }
 
+    @Override
+    public QuestionDto update(Long id, QuestionDto questionDto){
+        Question questionUpdated = questionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Question not found with id "+id));
+
+        if(questionDto.getQuestionText().isEmpty() == false){
+            questionUpdated.setQuestionText(questionDto.getQuestionText());
+        }
+        questionUpdated.setType(questionDto.getType());
+        questionUpdated.setTotalScore(questionDto.getTotalScore());
+
+        if(questionDto.getLevelId() != null){
+            Level level = levelRepository.findById(questionDto.getLevelId())
+                    .orElseThrow(() -> new EntityNotFoundException("Level not found"));
+            questionUpdated.setLevel(level);
+        }
+
+        if (questionDto.getSubjectId() != null){
+            Subject subject = subjectRepository.findById(questionDto.getSubjectId())
+                    .orElseThrow(() -> new EntityNotFoundException("Subject not found"));
+            questionUpdated.setSubject(subject);
+        }
+
+        questionUpdated = questionRepository.save(questionUpdated);
+        return modelMapper.map(questionUpdated, QuestionDto.class);
+    }
 }

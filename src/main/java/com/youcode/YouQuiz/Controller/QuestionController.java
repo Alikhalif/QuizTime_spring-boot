@@ -68,4 +68,17 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateQuestion(@PathVariable Long id, @RequestBody QuestionDto questionDto){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Questions Updated", questionService.update(id, questionDto));
+            message.put("message", "Question updated successfully");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Question Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }
