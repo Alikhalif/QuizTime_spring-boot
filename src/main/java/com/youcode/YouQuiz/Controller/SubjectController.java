@@ -30,4 +30,18 @@ public class SubjectController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteSubject(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try {
+            subjectService.delete(id);
+            message.put("message", "Subject deleted successfully");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Error in delete subject ! ");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
