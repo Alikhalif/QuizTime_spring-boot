@@ -26,7 +26,9 @@ public class Question implements Serializable {
     @Column(nullable = false)
     private String questionText;
 
-    @Column
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
 
     @Column(nullable = false)
