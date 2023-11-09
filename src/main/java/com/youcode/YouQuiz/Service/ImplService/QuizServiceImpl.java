@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Exception.EntityNotFoundException;
+import com.youcode.YouQuiz.Service.QuizService;
 import com.youcode.YouQuiz.dto.QuizDto;
 import com.youcode.YouQuiz.entities.Quiz;
 import com.youcode.YouQuiz.repositories.QuizRepository;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class QuizServiceImpl {
+public class QuizServiceImpl implements QuizService {
     @Autowired
     private QuizRepository quizRepository;
 
@@ -24,13 +25,14 @@ public class QuizServiceImpl {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Override
     public QuizDto create(QuizDto quizDto){
         Quiz quiz = modelMapper.map(quizDto, Quiz.class);
         quiz = quizRepository.save(quiz);
         return modelMapper.map(quiz, QuizDto.class);
     }
 
-
+    @Override
     public QuizDto update(Long id, QuizDto quizDto){
         if(quizRepository.existsById(id)){
             Quiz quiz = modelMapper.map(quizDto, Quiz.class);
@@ -49,6 +51,7 @@ public class QuizServiceImpl {
         }
     }
 
+    @Override
     public void delete(Long id){
         if (quizRepository.existsById(id)){
             quizRepository.deleteById(id);
@@ -61,10 +64,12 @@ public class QuizServiceImpl {
         }
     }
 
+    @Override
     public List<QuizDto> getAll(){
         return Arrays.asList(modelMapper.map(quizRepository.findAll(), QuizDto[].class));
     }
 
+    @Override
     public Optional<QuizDto> getOne(Long id){
         Optional<Quiz> quizOptional = quizRepository.findById(id);
         return quizOptional.map(quiz ->{

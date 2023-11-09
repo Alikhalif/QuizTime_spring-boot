@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Exception.EntityNotFoundException;
+import com.youcode.YouQuiz.Service.LevelService;
 import com.youcode.YouQuiz.dto.LevelDto;
 import com.youcode.YouQuiz.dto.StudentDto;
 import com.youcode.YouQuiz.entities.Level;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LevelServiceImpl {
+public class LevelServiceImpl implements LevelService {
 
     @Autowired
     private LevelRepository levelRepository;
@@ -23,16 +24,19 @@ public class LevelServiceImpl {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Override
     public LevelDto create(LevelDto levelDto){
         Level level = modelMapper.map(levelDto, Level.class);
         level = levelRepository.save(level);
         return modelMapper.map(level, LevelDto.class);
     }
 
+    @Override
     public List<LevelDto> getAll(){
         return Arrays.asList(modelMapper.map(levelRepository.findAll(), LevelDto[].class));
     }
 
+    @Override
     public Optional<LevelDto> getOne(Long id){
         Optional<Level> levelOptional = levelRepository.findById(id);
         return levelOptional.map(level -> {
@@ -41,6 +45,7 @@ public class LevelServiceImpl {
         }).orElseGet(Optional::empty);
     }
 
+    @Override
     public void delete(Long id){
         if (levelRepository.existsById(id)){
             levelRepository.deleteById(id);
@@ -53,18 +58,14 @@ public class LevelServiceImpl {
         }
     }
 
+    @Override
     public LevelDto update(Long id, LevelDto levelDto) {
-        if(levelRepository.existsById(id)){
+
+            System.out.println("okkkk   k "+ id);
             Level level = modelMapper.map(levelDto, Level.class);
             level.setId(id);
-            Level level1 = levelRepository.save(level);
-            return modelMapper.map(level1, LevelDto.class);
-        }else {
-            try {
-                throw new EntityNotFoundException("Level Not Found with id : "+ id);
-            } catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+            Level updatedLevel = levelRepository.save(level);
+            return modelMapper.map(updatedLevel, LevelDto.class);
+
     }
 }

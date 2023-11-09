@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,15 +69,15 @@ public class LevelController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Map<String, Object>> updateLevel(@PathVariable Long id, @RequestBody LevelDto levelDto){
         Map<String, Object> message = new HashMap<>();
         try{
-            message.put("updated", levelServiceImpl.update(id, levelDto));
+            levelServiceImpl.update(id, levelDto);
             message.put("message", "Level Updated successfully");
             return new ResponseEntity<>(message, HttpStatus.OK);
-        }catch (Exception e){
-            //message.put("erorr", "Level not found with id "+id);
+        }catch (EntityNotFoundException e){
+            message.put("erorr", "Level not found with id "+id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }

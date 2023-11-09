@@ -8,6 +8,7 @@ import java.util.List;
 public interface TrainerService {
     Trainer create(TrainerDto trainerDto);
     List<Trainer> getAll();
+    TrainerDto getOne(Long id);
     Trainer update(Long id, TrainerDto trainerDto);
     void delete(Long id);
 }

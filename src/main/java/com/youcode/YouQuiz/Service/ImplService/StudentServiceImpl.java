@@ -22,12 +22,14 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Override
     public StudentDto create(StudentDto studentDto){
         Student student = modelMapper.map(studentDto, Student.class);
         student = studentRepository.save(student);
         return modelMapper.map(student, StudentDto.class);
     }
 
+    @Override
     public List<StudentDto> getAll(){
         List<Student> students = studentRepository.findAll();
         return students.stream()
@@ -35,12 +37,14 @@ public class StudentServiceImpl implements StudentService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public StudentDto getOne(Long id){
         Optional<Student> optionalStudent = studentRepository.findById(id);
         return optionalStudent.map(student -> modelMapper.map(student, StudentDto.class)).orElse(null);
     }
 
 
+    @Override
     public StudentDto update(Long id, StudentDto studentDto) {
         if(studentRepository.existsById(id)){
             Student student = modelMapper.map(studentDto, Student.class);
@@ -56,6 +60,7 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
     public void delete(Long id){
         if(studentRepository.existsById(id)){
             studentRepository.deleteById(id);
