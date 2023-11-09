@@ -6,10 +6,7 @@ import com.youcode.YouQuiz.dto.QuizDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +29,31 @@ public class QuestionController {
         }catch (Exception e){
             message.put("error", "Question Not created");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteQuestion(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            questionService.delete(id);
+            message.put("messge", "Question deleted successfully");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Question Not deleted");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneQuestion(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Question", questionService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Question Not deleted");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 }
