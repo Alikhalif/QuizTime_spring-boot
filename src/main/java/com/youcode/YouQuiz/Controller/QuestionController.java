@@ -56,4 +56,16 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllQuestion(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Questions", questionService.getAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Question Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }

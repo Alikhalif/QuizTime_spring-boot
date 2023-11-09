@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -65,5 +67,9 @@ public class QuestionServiceImpl implements QuestionService {
         return modelMapper.map(question, QuestionDto.class);
     }
 
+    @Override
+    public List<QuestionDto> getAll(){
+        return Arrays.asList(modelMapper.map(questionRepository.findAll(), QuestionDto[].class));
+    }
 
 }
