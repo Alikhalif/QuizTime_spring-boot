@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -44,6 +46,12 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = subjectRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException("Subject not found with id "+id));
         return modelMapper.map(subject, SubjectDto.class);
+    }
+
+
+    @Override
+    public List<SubjectDto> getAll(){
+        return Arrays.asList(modelMapper.map(subjectRepository.findAll(), SubjectDto[].class));
     }
 
 }

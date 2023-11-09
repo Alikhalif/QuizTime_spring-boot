@@ -57,4 +57,17 @@ public class SubjectController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllSubjects(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Subjects", subjectService.getAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Subject Not found !");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }
