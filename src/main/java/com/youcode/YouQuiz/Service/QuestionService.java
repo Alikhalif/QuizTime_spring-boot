@@ -4,4 +4,6 @@ import com.youcode.YouQuiz.dto.QuestionDto;
 
 public interface QuestionService {
     QuestionDto create(QuestionDto questionDto);
+    void delete(Long id);
+
 }

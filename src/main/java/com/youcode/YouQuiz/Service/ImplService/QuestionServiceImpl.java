@@ -48,6 +48,15 @@ public class QuestionServiceImpl implements QuestionService {
 
         question = questionRepository.save(question);
         return modelMapper.map(question, QuestionDto.class);
-
     }
+
+
+    @Override
+    public void delete(Long id){
+        Question question = questionRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Question not found with id "+id));
+        questionRepository.delete(question);
+    }
+
+
 }
