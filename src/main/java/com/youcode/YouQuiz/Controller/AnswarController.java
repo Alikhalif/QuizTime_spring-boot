@@ -70,4 +70,17 @@ public class AnswarController {
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateAnswar(@PathVariable Long id, @RequestBody AnswarDto answarDto){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            answarService.update(id,answarDto);
+            message.put("message","answar update successfully");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Answar Not Found with id : "+id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }

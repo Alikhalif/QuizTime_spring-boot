@@ -9,4 +9,5 @@ public interface AnswarService {
     List<AnswarDto> getAll();
     AnswarDto getOne(Long id);
     void delete(Long id);
+    AnswarDto update(Long id, AnswarDto answarDto);
 }

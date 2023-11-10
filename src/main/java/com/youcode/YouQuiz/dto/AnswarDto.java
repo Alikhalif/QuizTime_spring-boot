@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class AnswarDto {
     private Long id;
     private String answareText;

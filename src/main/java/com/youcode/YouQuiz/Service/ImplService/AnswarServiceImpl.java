@@ -65,4 +65,13 @@ public class AnswarServiceImpl implements AnswarService {
                 .orElseThrow(() -> new EntityNotFoundException("Answar not found with id : "+id));
         answarRepository.delete(answar);
     }
+
+    @Override
+    public AnswarDto update(Long id, AnswarDto answarDto){
+        Answar answar = answarRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("not found with id : "+id));
+        answar.setAnswareText(answarDto.getAnswareText());
+        answar = answarRepository.save(answar);
+        return modelMapper.map(answar, AnswarDto.class);
+    }
 }
