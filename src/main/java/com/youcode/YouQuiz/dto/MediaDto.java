@@ -10,4 +10,5 @@ public class MediaDto {
     private Integer id;
     private String url;
     private MediaType mediaType;
+    private Long question_id;
 }
