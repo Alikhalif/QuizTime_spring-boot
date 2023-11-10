@@ -4,4 +4,5 @@ import com.youcode.YouQuiz.dto.MediaDto;
 
 public interface MediaService {
     MediaDto create(MediaDto mediaDto);
+    void delete(Integer id);
 }
