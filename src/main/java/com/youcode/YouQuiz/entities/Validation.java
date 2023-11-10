@@ -20,6 +20,10 @@ public class Validation {
     @Column(nullable = false)
     private Double points;
 
+    //Boolean
+    @Column(nullable = false)
+    private Boolean checkAnswar;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;

@@ -8,5 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnswarDto {
     private Long id;
-    private String response;
+    private String answareText;
+
+    private double points;
+    private Boolean checkAnswar;
+    private Long question_id;
+
 }
