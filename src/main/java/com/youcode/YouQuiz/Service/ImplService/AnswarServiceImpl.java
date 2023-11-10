@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class AnswarServiceImpl implements AnswarService {
 
@@ -40,5 +43,11 @@ public class AnswarServiceImpl implements AnswarService {
         );
 
         return modelMapper.map(answar, AnswarDto.class);
+    }
+
+
+    @Override
+    public List<AnswarDto> getAll(){
+        return Arrays.asList(modelMapper.map(answarRepository.findAll(), AnswarDto[].class));
     }
 }
