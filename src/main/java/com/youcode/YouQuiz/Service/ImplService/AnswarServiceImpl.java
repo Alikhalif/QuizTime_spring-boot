@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,5 +50,12 @@ public class AnswarServiceImpl implements AnswarService {
     @Override
     public List<AnswarDto> getAll(){
         return Arrays.asList(modelMapper.map(answarRepository.findAll(), AnswarDto[].class));
+    }
+
+    @Override
+    public AnswarDto getOne(Long id){
+        Answar answar = answarRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("not found !"));
+        return modelMapper.map(answar, AnswarDto.class);
     }
 }

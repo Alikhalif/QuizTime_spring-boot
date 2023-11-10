@@ -40,7 +40,20 @@ public class AnswarController {
             message.put("Answars", answarService.getAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("error", "Answar Not Found !");
+            message.put("error", "Answars Not Found !");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneAnswar(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Answar", answarService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Answar Not Found with id : "+id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
