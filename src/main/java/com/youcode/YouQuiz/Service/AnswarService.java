@@ -8,4 +8,5 @@ public interface AnswarService {
     AnswarDto create(AnswarDto answarDto);
     List<AnswarDto> getAll();
     AnswarDto getOne(Long id);
+    void delete(Long id);
 }

@@ -56,6 +56,18 @@ public class AnswarController {
             message.put("error", "Answar Not Found with id : "+id);
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteAnswar(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            answarService.delete(id);
+            message.put("message","answar deleted successfully");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Answar Not Found with id : "+id);
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 }
