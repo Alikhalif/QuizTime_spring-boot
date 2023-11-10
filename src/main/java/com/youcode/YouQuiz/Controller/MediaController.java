@@ -44,4 +44,19 @@ public class MediaController {
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneMedia(@PathVariable Integer id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Media", mediaService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Media Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }

@@ -47,4 +47,11 @@ public class MediaServiceImpl implements MediaService {
                 .orElseThrow(()-> new EntityNotFoundException("Question not found with id "+id));
         mediaRepository.delete(media);
     }
+
+    @Override
+    public MediaDto getOne(Integer id){
+        Media media = mediaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Media not found with id "+id));
+        return modelMapper.map(media, MediaDto.class);
+    }
 }
