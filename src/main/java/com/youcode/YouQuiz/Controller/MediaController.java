@@ -58,5 +58,16 @@ public class MediaController {
     }
 
 
+    @GetMapping("/question/{id}")
+    public ResponseEntity<Map<String, Object>> getMediaByQuestion(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Media", mediaService.getByQuestion(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Media Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

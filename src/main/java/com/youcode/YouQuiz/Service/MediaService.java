@@ -6,4 +6,5 @@ public interface MediaService {
     MediaDto create(MediaDto mediaDto);
     void delete(Integer id);
     MediaDto getOne(Integer id);
+    MediaDto getByQuestion(Long question_id);
 }

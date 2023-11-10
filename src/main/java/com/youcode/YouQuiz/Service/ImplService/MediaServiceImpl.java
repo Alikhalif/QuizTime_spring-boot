@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class MediaServiceImpl implements MediaService {
@@ -52,6 +53,13 @@ public class MediaServiceImpl implements MediaService {
     public MediaDto getOne(Integer id){
         Media media = mediaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Media not found with id "+id));
+        return modelMapper.map(media, MediaDto.class);
+    }
+
+    @Override
+    public MediaDto getByQuestion(Long question_id){
+        Question question = modelMapper.map(questionRepository.findById(question_id), Question.class);
+        Media media = mediaRepository.findByQuestion(question);
         return modelMapper.map(media, MediaDto.class);
     }
 }
