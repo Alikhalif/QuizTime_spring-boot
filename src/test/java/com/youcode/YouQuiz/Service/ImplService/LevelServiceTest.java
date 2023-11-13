@@ -1,5 +1,6 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
+import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.dto.LevelDto;
 import com.youcode.YouQuiz.entities.Level;
 import com.youcode.YouQuiz.repositories.LevelRepository;
@@ -72,9 +73,9 @@ public class LevelServiceTest {
     }
 
     @Test
-    public void testGetOneLevel() {
-        when(levelService.getOne(1L)).thenReturn(Optional.ofNullable(levelDto));
-        Optional<LevelDto> tmp = levelService.getOne(1L);
+    public void testGetOneLevel() throws EntityNotFoundException {
+        when(levelService.getOne(1L)).thenReturn(levelDto);
+        LevelDto tmp = levelService.getOne(1L);
         assertSame(tmp, levelDto);
     }
 

@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/api/media")
 public class MediaController {
     @Autowired
-    private MediaServiceImpl mediaService;
+    private MediaService mediaService;
 
 
     @PostMapping

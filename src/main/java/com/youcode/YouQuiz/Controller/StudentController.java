@@ -16,7 +16,7 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     @PostMapping
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto){

@@ -37,12 +37,10 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
-    public Optional<LevelDto> getOne(Long id){
-        Optional<Level> levelOptional = levelRepository.findById(id);
-        return levelOptional.map(level -> {
-            LevelDto levelDto = modelMapper.map(levelOptional, LevelDto.class);
-            return Optional.ofNullable(levelDto);
-        }).orElseGet(Optional::empty);
+    public LevelDto getOne(Long id) throws EntityNotFoundException {
+        Level level = levelRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Not found level with id : "+id));
+        return modelMapper.map(level, LevelDto.class);
     }
 
     @Override
@@ -60,12 +58,9 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto update(Long id, LevelDto levelDto) {
-
-            System.out.println("okkkk   k "+ id);
-            Level level = modelMapper.map(levelDto, Level.class);
-            level.setId(id);
-            Level updatedLevel = levelRepository.save(level);
-            return modelMapper.map(updatedLevel, LevelDto.class);
-
+        Level level = modelMapper.map(levelDto, Level.class);
+        level.setId(id);
+        Level updatedLevel = levelRepository.save(level);
+        return modelMapper.map(updatedLevel, LevelDto.class);
     }
 }

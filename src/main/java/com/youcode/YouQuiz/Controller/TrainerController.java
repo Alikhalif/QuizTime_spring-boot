@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Controller;
 
 import com.youcode.YouQuiz.Service.ImplService.TrainerServiceImpl;
+import com.youcode.YouQuiz.Service.TrainerService;
 import com.youcode.YouQuiz.dto.TrainerDto;
 import com.youcode.YouQuiz.entities.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 public class TrainerController {
 
     @Autowired
-    private TrainerServiceImpl trainerService;
+    private TrainerService trainerService;
 
     @PostMapping
     public Trainer createTrainer(@RequestBody TrainerDto trainerDto){

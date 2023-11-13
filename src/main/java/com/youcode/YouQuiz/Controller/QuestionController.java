@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Controller;
 
 import com.youcode.YouQuiz.Service.ImplService.QuestionServiceImpl;
+import com.youcode.YouQuiz.Service.QuestionService;
 import com.youcode.YouQuiz.dto.QuestionDto;
 import com.youcode.YouQuiz.dto.QuizDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,14 @@ import java.util.Map;
 public class QuestionController {
 
     @Autowired
-    private QuestionServiceImpl questionService;
+    private QuestionService questionService;
 
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> createQuesion(@RequestBody QuestionDto questionDto){
         Map<String, Object> message = new HashMap<>();
         try{
-            questionService.create(questionDto);
-            message.put("messge", "Question created successfully");
+            message.put("New_Question",questionService.create(questionDto));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
             message.put("error", "Question Not created");

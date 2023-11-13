@@ -67,17 +67,14 @@ public class MediaServiceTest {
         when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
         when(mediaRepository.save(any(Media.class))).thenReturn(media);
 
-        // When
         MediaDto result = mediaService.create(mediaDto);
 
-        // Then
-        assertNotNull(result); // This assertion is failing
+        assertNotNull(result);
         assertEquals(mediaDto.getId(), result.getId());
         assertEquals(mediaDto.getUrl(), result.getUrl());
         assertEquals(mediaDto.getMediaType(), result.getMediaType());
         assertEquals(mediaDto.getQuestion_id(), result.getQuestion_id());
 
-        // Optionally, you can verify that the repository methods were called
         verify(modelMapper, times(1)).map(mediaDto, Media.class);
         verify(questionRepository, times(1)).findById(1L);
         verify(mediaRepository, times(1)).save(any(Media.class));
@@ -85,15 +82,29 @@ public class MediaServiceTest {
 
     @Test
     public void testDelete() {
-        // Given
         when(mediaRepository.findById(1)).thenReturn(Optional.of(media));
 
-        // When
         assertDoesNotThrow(() -> mediaService.delete(1));
 
-        // Optionally, you can verify that the repository method was called
         verify(mediaRepository, times(1)).findById(1);
         verify(mediaRepository, times(1)).delete(media);
     }
 
+
+    @Test
+    public void testGetOne() {
+        when(mediaRepository.findById(1)).thenReturn(Optional.of(media));
+        when(modelMapper.map(media, MediaDto.class)).thenReturn(mediaDto);
+
+        MediaDto result = mediaService.getOne(1);
+
+        assertNotNull(result);
+        assertEquals(mediaDto.getId(), result.getId());
+        assertEquals(mediaDto.getUrl(), result.getUrl());
+        assertEquals(mediaDto.getMediaType(), result.getMediaType());
+        assertEquals(mediaDto.getQuestion_id(), result.getQuestion_id());
+
+        verify(mediaRepository, times(1)).findById(1);
+        verify(modelMapper, times(1)).map(media, MediaDto.class);
+    }
 }

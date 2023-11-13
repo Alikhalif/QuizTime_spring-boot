@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/api/answar")
 public class AnswarController {
     @Autowired
-    private AnswarServiceImpl answarService;
+    private AnswarService answarService;
 
 
     @PostMapping

@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Controller;
 
 import com.youcode.YouQuiz.Service.ImplService.QuizServiceImpl;
+import com.youcode.YouQuiz.Service.QuizService;
 import com.youcode.YouQuiz.dto.QuizDto;
 import com.youcode.YouQuiz.dto.StudentDto;
 import jakarta.ws.rs.Path;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class QuizController {
 
     @Autowired
-    private QuizServiceImpl quizService;
+    private QuizService quizService;
 
     @PostMapping
     public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto quizDto){
