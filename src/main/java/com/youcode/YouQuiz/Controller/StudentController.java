@@ -1,5 +1,6 @@
 package com.youcode.YouQuiz.Controller;
 
+import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.Service.ImplService.StudentServiceImpl;
 import com.youcode.YouQuiz.Service.StudentService;
 import com.youcode.YouQuiz.dto.StudentDto;
@@ -40,7 +41,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) throws EntityNotFoundException {
         StudentDto studentUpdate = studentService.update(id,studentDto);
         if(studentUpdate != null){
             return new ResponseEntity<>(studentUpdate, HttpStatus.OK);

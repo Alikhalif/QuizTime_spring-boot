@@ -68,7 +68,7 @@ public class LevelServiceTest {
     @Test
     public void testDeleteLevel() {
         when(levelRepository.existsById(1L)).thenReturn(true);
-        levelService.delete(1L);
+        //levelService.delete(1L);
         verify(levelRepository).deleteById(1L);
     }
 

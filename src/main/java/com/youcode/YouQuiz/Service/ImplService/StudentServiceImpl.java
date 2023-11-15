@@ -3,12 +3,14 @@ package com.youcode.YouQuiz.Service.ImplService;
 import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.Service.StudentService;
 import com.youcode.YouQuiz.dto.StudentDto;
+import com.youcode.YouQuiz.entities.Level;
 import com.youcode.YouQuiz.entities.Student;
 import com.youcode.YouQuiz.repositories.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,10 +33,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDto> getAll(){
-        List<Student> students = studentRepository.findAll();
-        return students.stream()
-                .map(student -> modelMapper.map(student, StudentDto.class))
-                .collect(Collectors.toList());
+        return Arrays.asList(modelMapper.map(studentRepository.findAll(), StudentDto[].class));
+
     }
 
     @Override
@@ -45,31 +45,19 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public StudentDto update(Long id, StudentDto studentDto) {
-        if(studentRepository.existsById(id)){
-            Student student = modelMapper.map(studentDto, Student.class);
-            student.setId(id);
-            student = studentRepository.save(student);
-            return modelMapper.map(student, StudentDto.class);
-        }else {
-            try {
-                throw new EntityNotFoundException("Student Not Found with id : "+ id);
-            } catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public StudentDto update(Long id, StudentDto studentDto) throws EntityNotFoundException {
+        Student existingStudent = studentRepository.findById(id)
+                .orElseThrow(() -> new javax.persistence.EntityNotFoundException("The student with id " + id + " is not found"));
+        Student student = modelMapper.map(studentDto, Student.class);
+        student.setId(existingStudent.getId());
+        Student updatedStudent = studentRepository.save(student);
+        return modelMapper.map(updatedStudent, StudentDto.class);
     }
 
     @Override
     public void delete(Long id){
-        if(studentRepository.existsById(id)){
-            studentRepository.deleteById(id);
-        }else {
-            try {
-                throw new EntityNotFoundException("Student not found with id : "+ id);
-            } catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        Student existingStudent = studentRepository.findById(id)
+                .orElseThrow(() -> new javax.persistence.EntityNotFoundException("The student with id " + id + " is not found"));
+        studentRepository.delete(existingStudent);
     }
 }

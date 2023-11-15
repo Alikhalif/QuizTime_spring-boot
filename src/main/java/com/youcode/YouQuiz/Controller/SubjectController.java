@@ -23,7 +23,6 @@ public class SubjectController {
         Map<String, Object> message = new HashMap<>();
         try {
             message.put("Subject", subjectService.create(subjectDto));
-            message.put("message", "Subject created successfully");
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (Exception e){
             message.put("error", "Error in create subject ! ");
@@ -42,10 +41,6 @@ public class SubjectController {
             message.put("error", "Error in delete subject ! ");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        //ObjectMapper objectMapper = new ObjectMapper();
-        //String j = objectMapper.writeValueAsString(book);
-
-        //return j;
 
 
     }

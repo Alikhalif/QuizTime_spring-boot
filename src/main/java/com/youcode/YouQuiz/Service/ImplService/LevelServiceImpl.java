@@ -5,6 +5,7 @@ import com.youcode.YouQuiz.Service.LevelService;
 import com.youcode.YouQuiz.dto.LevelDto;
 import com.youcode.YouQuiz.dto.StudentDto;
 import com.youcode.YouQuiz.entities.Level;
+import com.youcode.YouQuiz.entities.Question;
 import com.youcode.YouQuiz.entities.Student;
 import com.youcode.YouQuiz.repositories.LevelRepository;
 import org.modelmapper.ModelMapper;
@@ -44,16 +45,10 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
-    public void delete(Long id){
-        if (levelRepository.existsById(id)){
-            levelRepository.deleteById(id);
-        }else {
-            try{
-                throw new EntityNotFoundException("Level not found with id : "+id);
-            }catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public void delete(Long id) throws EntityNotFoundException {
+        Level level = levelRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Question not found with id "+id));
+        levelRepository.delete(level);
     }
 
     @Override

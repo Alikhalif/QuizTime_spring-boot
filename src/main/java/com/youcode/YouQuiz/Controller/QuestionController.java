@@ -21,7 +21,7 @@ public class QuestionController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createQuesion(@RequestBody QuestionDto questionDto){
+    public ResponseEntity<Map<String, Object>> createQuestion(@RequestBody QuestionDto questionDto){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("New_Question",questionService.create(questionDto));
@@ -74,7 +74,6 @@ public class QuestionController {
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("Questions Updated", questionService.update(id, questionDto));
-            message.put("message", "Question updated successfully");
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
             message.put("error", "Question Not found");

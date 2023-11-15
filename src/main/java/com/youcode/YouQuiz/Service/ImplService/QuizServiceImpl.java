@@ -3,6 +3,7 @@ package com.youcode.YouQuiz.Service.ImplService;
 import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.Service.QuizService;
 import com.youcode.YouQuiz.dto.QuizDto;
+import com.youcode.YouQuiz.entities.Level;
 import com.youcode.YouQuiz.entities.Quiz;
 import com.youcode.YouQuiz.repositories.QuizRepository;
 import com.youcode.YouQuiz.repositories.TrainerRepository;
@@ -53,15 +54,14 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void delete(Long id){
-        if (quizRepository.existsById(id)){
-            quizRepository.deleteById(id);
-        }else {
-            try{
-                throw new EntityNotFoundException("Quiz not found with id : "+id);
-            }catch (EntityNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+        Quiz quiz = null;
+        try {
+            quiz = quizRepository.findById(id)
+                    .orElseThrow(()-> new EntityNotFoundException("Question not found with id "+id));
+        } catch (EntityNotFoundException e) {
+            throw new RuntimeException(e);
         }
+        quizRepository.delete(quiz);
     }
 
     @Override
