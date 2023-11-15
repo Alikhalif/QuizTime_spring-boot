@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tempoQuiz")
 public class TompQuiz {
-    private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private TempID id;

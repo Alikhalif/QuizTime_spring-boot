@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 public class TempID implements Serializable {
-
-    private static final Long serialVersionUID = 1L;
+    //composite key
     @Column(name = "quiz_id")
     private Long quiz;
     @Column(name = "question_id")

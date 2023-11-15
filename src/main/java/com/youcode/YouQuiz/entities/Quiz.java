@@ -13,8 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "quizs")
-public class Quiz implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Quiz{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
