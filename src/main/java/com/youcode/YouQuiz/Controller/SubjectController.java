@@ -42,6 +42,11 @@ public class SubjectController {
             message.put("error", "Error in delete subject ! ");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        //ObjectMapper objectMapper = new ObjectMapper();
+        //String j = objectMapper.writeValueAsString(book);
+
+        //return j;
+
 
     }
 
