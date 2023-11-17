@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,14 +22,14 @@ public class QuizController {
     private QuizService quizService;
 
     @PostMapping
-    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto quizDto){
+    public ResponseEntity<QuizDto> createQuiz(@Valid @RequestBody QuizDto quizDto){
         QuizDto quizCreated = quizService.create(quizDto);
         return new ResponseEntity<>(quizCreated, HttpStatus.CREATED);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<QuizDto> updateQuiz(@PathVariable Long id, @RequestBody QuizDto quizDto){
+    public ResponseEntity<QuizDto> updateQuiz(@PathVariable Long id, @Valid @RequestBody QuizDto quizDto){
         QuizDto quizDto1 = quizService.update(id,quizDto);
         if(quizDto1 != null){
             return new ResponseEntity<>(quizDto1, HttpStatus.OK);

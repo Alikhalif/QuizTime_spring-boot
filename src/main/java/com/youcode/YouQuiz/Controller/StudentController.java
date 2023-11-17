@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto){
+    public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto){
         StudentDto studentCreated = studentService.create(studentDto);
         return new ResponseEntity<>(studentCreated, HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) throws EntityNotFoundException {
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDto studentDto) throws EntityNotFoundException {
         StudentDto studentUpdate = studentService.update(id,studentDto);
         if(studentUpdate != null){
             return new ResponseEntity<>(studentUpdate, HttpStatus.OK);

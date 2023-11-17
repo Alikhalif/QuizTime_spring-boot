@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class MediaController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createMedia(@RequestBody MediaDto mediaDto){
+    public ResponseEntity<Map<String, Object>> createMedia(@Valid @RequestBody MediaDto mediaDto){
         Map<String, Object> message = new HashMap<>();
         try{
             mediaService.create(mediaDto);
@@ -33,7 +34,7 @@ public class MediaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> createMedia(@PathVariable Integer id){
+    public ResponseEntity<Map<String, Object>> deleteMedia(@PathVariable Integer id){
         Map<String, Object> message = new HashMap<>();
         try{
             mediaService.delete(id);

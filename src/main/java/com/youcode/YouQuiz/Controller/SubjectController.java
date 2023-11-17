@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createSubject(@RequestBody SubjectDto subjectDto){
+    public ResponseEntity<Map<String, Object>> createSubject(@Valid @RequestBody SubjectDto subjectDto){
         Map<String, Object> message = new HashMap<>();
         try {
             message.put("Subject", subjectService.create(subjectDto));

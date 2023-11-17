@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class AnswarController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createAnswar(@RequestBody AnswarDto answarDto){
+    public ResponseEntity<Map<String, Object>> createAnswar(@Valid @RequestBody AnswarDto answarDto){
         Map<String, Object> message = new HashMap<>();
         try{
             answarService.create(answarDto);
@@ -72,7 +73,7 @@ public class AnswarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateAnswar(@PathVariable Long id, @RequestBody AnswarDto answarDto){
+    public ResponseEntity<Map<String, Object>> updateAnswar(@PathVariable Long id, @Valid @RequestBody AnswarDto answarDto){
         Map<String, Object> message = new HashMap<>();
         try{
             answarService.update(id,answarDto);

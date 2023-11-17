@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class TrainerController {
     private TrainerService trainerService;
 
     @PostMapping
-    public Trainer createTrainer(@RequestBody TrainerDto trainerDto){
+    public Trainer createTrainer(@Valid @RequestBody TrainerDto trainerDto){
         return trainerService.create(trainerDto);
     }
 
@@ -39,7 +40,7 @@ public class TrainerController {
     }
 
     @PutMapping("/{id}")
-    public Trainer updateTrainer(@PathVariable Long id, @RequestBody TrainerDto trainerDto){
+    public Trainer updateTrainer(@PathVariable Long id, @Valid @RequestBody TrainerDto trainerDto){
         return trainerService.update(id, trainerDto);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class LevelController {
     private LevelService levelServiceImpl;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createLevel(@RequestBody LevelDto levelDto){
+    public ResponseEntity<Map<String, Object>> createLevel(@Valid @RequestBody LevelDto levelDto){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("Level", levelServiceImpl.create(levelDto));
@@ -70,7 +71,7 @@ public class LevelController {
 
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Map<String, Object>> updateLevel(@PathVariable Long id, @RequestBody LevelDto levelDto){
+    public ResponseEntity<Map<String, Object>> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto){
         Map<String, Object> message = new HashMap<>();
         try{
             levelServiceImpl.update(id, levelDto);

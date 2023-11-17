@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class QuestionController {
 
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createQuestion(@RequestBody QuestionDto questionDto){
+    public ResponseEntity<Map<String, Object>> createQuestion(@Valid @RequestBody QuestionDto questionDto){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("New_Question",questionService.create(questionDto));
@@ -70,7 +71,7 @@ public class QuestionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateQuestion(@PathVariable Long id, @RequestBody QuestionDto questionDto){
+    public ResponseEntity<Map<String, Object>> updateQuestion(@PathVariable Long id, @Valid @RequestBody QuestionDto questionDto){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("Questions Updated", questionService.update(id, questionDto));
