@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class AssignQuiz {
     private Long id;
 
     @Column
+    @Min(value = 0, message = "score can't be negative")
     private Double score;
 
     @Column
@@ -28,9 +31,11 @@ public class AssignQuiz {
     private String reason;
 
     @Column
+    @NotNull(message = "debut date can't be null")
     private LocalDateTime debutDate;
 
     @Column
+    @NotNull(message = "debut date can't be null")
     private LocalDateTime endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

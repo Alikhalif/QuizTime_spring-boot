@@ -1,6 +1,8 @@
 package com.youcode.YouQuiz.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ public class Student extends User{
     private Long id;
 
     @Column
+    @NotNull(message = "date of inscription should not be empty")
     private LocalDate dateInscription;
 
 

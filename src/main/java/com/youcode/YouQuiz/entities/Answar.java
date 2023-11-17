@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class Answar {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull(message = "answareText can't be null")
     private String answareText;
 
     @OneToMany(mappedBy = "answar", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

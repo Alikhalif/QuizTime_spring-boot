@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,14 +26,17 @@ public class Question{
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "question body can't be empty")
     private String questionText;
 
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "the question required a type")
     private QuestionType type;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "total score can't be less then")
     private Double totalScore;
 
     @ManyToOne

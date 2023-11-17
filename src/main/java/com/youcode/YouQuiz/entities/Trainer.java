@@ -1,6 +1,8 @@
 package com.youcode.YouQuiz.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class Trainer extends User{
     private Long id;
 
     @Column
+    @NotBlank(message = "speciality should not be empty")
     private String speciality;
 
     @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
