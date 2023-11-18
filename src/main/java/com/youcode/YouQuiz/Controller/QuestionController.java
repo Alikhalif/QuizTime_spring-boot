@@ -2,8 +2,10 @@ package com.youcode.YouQuiz.Controller;
 
 import com.youcode.YouQuiz.Service.ImplService.QuestionServiceImpl;
 import com.youcode.YouQuiz.Service.QuestionService;
+import com.youcode.YouQuiz.Service.TempoQuizService;
 import com.youcode.YouQuiz.dto.QuestionDto;
 import com.youcode.YouQuiz.dto.QuizDto;
+import com.youcode.YouQuiz.dto.TompQuizDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private TempoQuizService tempoQuizService;
 
 
     @PostMapping
@@ -78,6 +82,19 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
             message.put("error", "Question Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    //temporisation
+    @PostMapping("/temp")
+    public ResponseEntity<Map<String, Object>> tempQuestionToQuiz(@Valid @RequestBody TompQuizDto tompQuizDto){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("temporisation Questions to quiz", tempoQuizService.create(tompQuizDto));
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        }catch (Exception e){
+            message.put("error", "Question or quiz Not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
