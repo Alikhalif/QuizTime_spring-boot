@@ -88,11 +88,24 @@ public class QuestionController {
 
     //temporisation
     @PostMapping("/temp")
-    public ResponseEntity<Map<String, Object>> tempQuestionToQuiz(@Valid @RequestBody TompQuizDto tompQuizDto){
+    public ResponseEntity<Map<String, Object>> assignTempQuestionToQuiz(@Valid @RequestBody TompQuizDto tompQuizDto){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("temporisation Questions to quiz", tempoQuizService.create(tompQuizDto));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
+        }catch (Exception e){
+            message.put("error", "Question or quiz Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @DeleteMapping("/temp/{id_quiz}/{id_question}")
+    public ResponseEntity<Map<String, Object>> deleteTempQuestionToQuiz(@PathVariable Long id_quiz, @PathVariable Long id_question){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            tempoQuizService.delete(id_quiz, id_question);
+            message.put("message", "assign question to quiz deleted successfully");
+            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         }catch (Exception e){
             message.put("error", "Question or quiz Not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
