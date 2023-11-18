@@ -67,5 +67,20 @@ public class TempoQuizServiceImpl implements TempoQuizService {
         tompquizRepository.delete(tompQuiz);
     }
 
+    @Override
+    public TompQuizDto update(Long quiz_id, Long question_id, TompQuizDto tompQuizDto){
+        TempID tempID = new TempID(
+                quiz_id,
+                question_id
+        );
+
+        TompQuiz tompQuizUpdated = tompquizRepository.findById(tempID)
+                .orElseThrow(() -> new EntityNotFoundException("temp quiz not find with id: "+tempID));
+
+        tompQuizUpdated.setTime(tompQuizDto.getTime());
+
+        tompQuizUpdated = tompquizRepository.save(tompQuizUpdated);
+        return modelMapper.map(tompQuizUpdated, TompQuizDto.class);
+    }
 
 }

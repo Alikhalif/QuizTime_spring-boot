@@ -111,4 +111,16 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @PutMapping("/temp/{id_quiz}/{id_question}")
+    public ResponseEntity<Map<String, Object>> updateTempQuestionToQuiz(@PathVariable Long id_quiz, @PathVariable Long id_question, @RequestBody TompQuizDto tompQuizDto){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", tempoQuizService.update(id_quiz, id_question, tompQuizDto));
+            return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+        }catch (Exception e){
+            message.put("error", "Question or quiz Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }
