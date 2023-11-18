@@ -21,4 +21,6 @@ public class AssignQuizDto {
     private LocalDateTime debutDate;
     @NotNull(message = "end date can't be null")
     private LocalDateTime endDate;
+    private Long student_id;
+    private Long quiz_id;
 }
