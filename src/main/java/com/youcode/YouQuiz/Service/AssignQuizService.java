@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AssignQuizService {
     List<AssignQuizDto> create(List<AssignQuizDto> assignQuizDtos);
+    void delete(Long id);
+    List<AssignQuizDto> getAll();
 }
