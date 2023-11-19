@@ -9,4 +9,5 @@ public interface AssignQuizService {
     void delete(Long id);
     List<AssignQuizDto> getAll();
     AssignQuizDto getOne(Long id);
+    AssignQuizDto update(Long id, AssignQuizDto assignQuizDto);
 }

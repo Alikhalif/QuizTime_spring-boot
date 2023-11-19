@@ -77,4 +77,28 @@ public class AssignQuizServiceImpl implements AssignQuizService {
         return modelMapper.map(assignQuiz, AssignQuizDto.class);
     }
 
+    @Override
+    public AssignQuizDto update(Long id, AssignQuizDto assignQuizDto){
+        AssignQuiz existingAssignQuiz = assignQuizRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("The assignment with id " + id + " is not found"));
+        existingAssignQuiz.setReason(assignQuizDto.getReason());
+        existingAssignQuiz.setResult(assignQuizDto.getResult());
+        existingAssignQuiz.setDebutDate(assignQuizDto.getDebutDate());
+        existingAssignQuiz.setEndDate(assignQuizDto.getEndDate());
+
+
+        if (assignQuizDto.getQuiz_id() != null) {
+            Quiz quiz = quizRepository.findById(assignQuizDto.getQuiz_id())
+                    .orElseThrow(() -> new EntityNotFoundException("The quiz with id " + assignQuizDto.getQuiz_id() + " is not found"));
+            existingAssignQuiz.setQuiz(quiz);
+        }
+
+        if (assignQuizDto.getStudent_id() != null) {
+            Student student = studentRepository.findById(assignQuizDto.getStudent_id())
+                    .orElseThrow(() -> new EntityNotFoundException("The student with id " + assignQuizDto.getStudent_id() + " is not found"));
+            existingAssignQuiz.setStudent(student);
+        }
+        existingAssignQuiz = assignQuizRepository.save(existingAssignQuiz);
+        return modelMapper.map(existingAssignQuiz, AssignQuizDto.class);
+    }
 }
