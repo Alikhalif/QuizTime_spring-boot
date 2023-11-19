@@ -54,6 +54,19 @@ public class AssignQuizController {
             message.put("all assignements", assignQuizService.getAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
+            message.put("error", "not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOneAssignQuizzes(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+
+            message.put("message", assignQuizService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
             message.put("error", "assign Quiz not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }

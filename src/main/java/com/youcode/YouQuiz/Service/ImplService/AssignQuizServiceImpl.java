@@ -69,4 +69,12 @@ public class AssignQuizServiceImpl implements AssignQuizService {
                 .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDto.class))
                 .toList();
     }
+
+    @Override
+    public AssignQuizDto getOne(Long id){
+        AssignQuiz assignQuiz = assignQuizRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("The assignment with id " + id + " is not found"));
+        return modelMapper.map(assignQuiz, AssignQuizDto.class);
+    }
+
 }
