@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "assignQuiz")
+@Builder
 public class AssignQuiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
