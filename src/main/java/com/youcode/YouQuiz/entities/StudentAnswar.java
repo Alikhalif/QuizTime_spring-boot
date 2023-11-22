@@ -27,3 +27,4 @@ public class StudentAnswar {
     @JoinColumn(name = "validation_id")
     private Validation validation;
 }
+ 

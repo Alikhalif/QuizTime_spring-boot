@@ -45,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public StudentDto update(Long id, StudentDto studentDto) throws EntityNotFoundException {
+    public StudentDto update(Long id, StudentDto studentDto) {
         Student existingStudent = studentRepository.findById(id)
                 .orElseThrow(() -> new javax.persistence.EntityNotFoundException("The student with id " + id + " is not found"));
         Student student = modelMapper.map(studentDto, Student.class);

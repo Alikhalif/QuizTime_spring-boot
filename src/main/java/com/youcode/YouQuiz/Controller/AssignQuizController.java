@@ -33,14 +33,13 @@ public class AssignQuizController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteassignQuiz(@PathVariable Long id){
+    public ResponseEntity<Map<String, Object>> deleteAssignQuiz(@PathVariable Long id){
         Map<String, Object> message = new HashMap<>();
         try{
             assignQuizService.delete(id);
-            message.put("message", "deleted successfuly");
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         }catch (Exception e){
-            //message.put("error", "assign Quiz not deleted");
+            message.put("error", "assign Quiz not deleted");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -76,7 +75,6 @@ public class AssignQuizController {
     public ResponseEntity<Map<String, Object>> updateAssignQuiz(@PathVariable Long id, @Valid @RequestBody AssignQuizDto assignQuizDto){
         Map<String, Object> message = new HashMap<>();
         try{
-
             message.put("message", assignQuizService.update(id, assignQuizDto));
             return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         }catch (Exception e){

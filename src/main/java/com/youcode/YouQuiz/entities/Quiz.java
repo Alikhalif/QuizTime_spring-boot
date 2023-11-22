@@ -46,8 +46,8 @@ public class Quiz{
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
-    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private AssignQuiz assignQuiz;
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AssignQuiz> assignQuiz;
 
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TompQuiz> tompQuizs;

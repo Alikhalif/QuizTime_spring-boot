@@ -59,7 +59,7 @@ public class AssignQuizServiceImpl implements AssignQuizService {
     public void delete(Long id) {
         AssignQuiz assignQuiz = assignQuizRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The assignment with id " + id + " is not found"));
-        assignQuizRepository.delete(assignQuiz);
+        assignQuizRepository.deleteById(id);
     }
 
     @Override

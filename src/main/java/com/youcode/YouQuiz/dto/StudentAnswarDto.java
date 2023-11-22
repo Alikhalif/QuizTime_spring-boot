@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudentAnswarDto {
     private Long id;
-    private Double score;
+    private Long assign_id;
+    private Long validation_id;
 }
