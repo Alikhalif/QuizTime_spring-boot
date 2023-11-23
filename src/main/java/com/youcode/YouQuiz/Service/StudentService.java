@@ -11,4 +11,5 @@ public interface StudentService {
     StudentDto getOne(Long id);
     StudentDto update(Long id, StudentDto studentDto) throws EntityNotFoundException;
     void delete(Long id);
+    List<StudentDto> findByLimit(int pageNbr);
 }

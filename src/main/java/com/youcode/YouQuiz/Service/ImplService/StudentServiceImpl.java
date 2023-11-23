@@ -8,7 +8,13 @@ import com.youcode.YouQuiz.entities.Student;
 import com.youcode.YouQuiz.repositories.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,5 +65,12 @@ public class StudentServiceImpl implements StudentService {
         Student existingStudent = studentRepository.findById(id)
                 .orElseThrow(() -> new javax.persistence.EntityNotFoundException("The student with id " + id + " is not found"));
         studentRepository.delete(existingStudent);
+    }
+
+    @Override
+    public List<StudentDto> findByLimit(int pageNbr){
+        Pageable page = PageRequest.of(pageNbr-1, 10);
+        Page<Student> students = studentRepository.findAll(page);
+        return Arrays.asList(modelMapper.map(students.toList(), StudentDto[].class));
     }
 }

@@ -11,4 +11,5 @@ public interface TrainerService {
     TrainerDto getOne(Long id);
     Trainer update(Long id, TrainerDto trainerDto);
     void delete(Long id);
+    List<TrainerDto> findByLimit(int pageNbr);
 }
