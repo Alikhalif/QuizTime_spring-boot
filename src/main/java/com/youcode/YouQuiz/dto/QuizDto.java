@@ -23,6 +23,6 @@ public class QuizDto {
     private String remark;
     @NotNull(message = "trainer id is required")
     private Long trainerId;
-    @NotNull(message = "assignQuizId id is required")
+    //@NotNull(message = "assignQuizId id is required")
     private Long assignQuizId;
 }

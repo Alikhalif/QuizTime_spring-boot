@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Service.TrainerService;
+import com.youcode.YouQuiz.dto.AnswarDto;
 import com.youcode.YouQuiz.dto.TrainerDto;
 import com.youcode.YouQuiz.entities.Trainer;
 import com.youcode.YouQuiz.repositories.TrainerRepository;
@@ -37,8 +38,8 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     @Override
-    public List<Trainer> getAll(){
-        return trainerRepository.findAll();
+    public List<TrainerDto> getAll(){
+        return Arrays.asList(modelMapper.map(trainerRepository.findAll(), TrainerDto[].class));
     }
 
 

@@ -24,8 +24,8 @@ public class MediaController {
     public ResponseEntity<Map<String, Object>> createMedia(@Valid @RequestBody MediaDto mediaDto){
         Map<String, Object> message = new HashMap<>();
         try{
-            mediaService.create(mediaDto);
-            message.put("messge", "Media created successfully");
+
+            message.put("messge", mediaService.create(mediaDto));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
             message.put("error", "Media Not created");

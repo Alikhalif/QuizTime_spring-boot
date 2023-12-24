@@ -27,7 +27,7 @@ public class AssignQuizController {
             message.put("message", assignQuizService.create(assignQuizDtos));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
-            message.put("error", "not assign Quiz");
+            message.put("error", e);
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -50,7 +50,7 @@ public class AssignQuizController {
         Map<String, Object> message = new HashMap<>();
         try{
 
-            message.put("all assignements", assignQuizService.getAll());
+            message.put("all_assignements", assignQuizService.getAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
             message.put("error", "not found");

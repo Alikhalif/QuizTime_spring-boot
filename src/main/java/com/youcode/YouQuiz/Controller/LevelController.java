@@ -74,8 +74,8 @@ public class LevelController {
     public ResponseEntity<Map<String, Object>> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDto levelDto){
         Map<String, Object> message = new HashMap<>();
         try{
-            levelServiceImpl.update(id, levelDto);
-            message.put("message", "Level Updated successfully");
+
+            message.put("message", levelServiceImpl.update(id, levelDto));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (EntityNotFoundException e){
             message.put("erorr", "Level not found with id "+id);

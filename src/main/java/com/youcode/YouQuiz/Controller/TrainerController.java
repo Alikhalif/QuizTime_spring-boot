@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/trainer")
@@ -24,17 +26,27 @@ public class TrainerController {
         return trainerService.create(trainerDto);
     }
 
-    @GetMapping
-    public List<Trainer> getAllTrainer(){
-        return trainerService.getAll();
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllTrainer(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("Trainers", trainerService.getAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Not found !");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TrainerDto> getTrainer(@PathVariable Long id){
-        TrainerDto trainerDto = trainerService.getOne(id);
-        if(trainerDto != null){
-            return new ResponseEntity<>(trainerDto, HttpStatus.OK);
-        }else {
+    public ResponseEntity<Map<String, Object>> getTrainer(@PathVariable Long id){
+        Map<String, Object> message = new HashMap<>();
+
+        try {
+            message.put("trainer", trainerService.getOne(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Not found !");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -47,5 +59,12 @@ public class TrainerController {
     @DeleteMapping("/{id}")
     public void deleteTrainer(@PathVariable Long id){
         trainerService.delete(id);
+    }
+
+
+    @GetMapping("/find/{page}")
+    public ResponseEntity<List<TrainerDto>> findTrainerByLimit(@PathVariable int page){
+        List<TrainerDto> trainers = trainerService.findByLimit(page);
+        return ResponseEntity.ok(trainers);
     }
 }

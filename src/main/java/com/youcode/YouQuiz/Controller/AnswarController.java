@@ -23,8 +23,7 @@ public class AnswarController {
     public ResponseEntity<Map<String, Object>> createAnswar(@Valid @RequestBody AnswarDto answarDto){
         Map<String, Object> message = new HashMap<>();
         try{
-            answarService.create(answarDto);
-            message.put("messge", "Answar created successfully");
+            message.put("messge", answarService.create(answarDto));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
             message.put("error", "Answar Not created");

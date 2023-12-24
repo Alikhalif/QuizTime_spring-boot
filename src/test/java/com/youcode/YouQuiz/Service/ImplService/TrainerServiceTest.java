@@ -83,7 +83,7 @@ public class TrainerServiceTest {
 
         given(trainerRepository.findAll()).willReturn(List.of(trainer, trainer1));
         given(modelMapper.map(trainer, TrainerDto.class)).willReturn(trainerDto);
-        List<Trainer> allTrainers = trainerService.getAll();
+        List<TrainerDto> allTrainers = trainerService.getAll();
         assertThat(allTrainers).isNotNull();
 
     }
