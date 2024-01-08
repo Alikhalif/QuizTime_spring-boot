@@ -82,4 +82,18 @@ public class AssignQuizController {
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+
+    @GetMapping("/student/{studentid}")
+    public ResponseEntity<Map<String, Object>> getAssignQuizzesByStudent(@PathVariable Long studentid){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", assignQuizService.getByStudent(studentid));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "assign Quiz not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

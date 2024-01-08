@@ -1,5 +1,6 @@
-package com.youcode.YouQuiz.Service;
+package com.youcode.YouQuiz.Service.ImplService;
 
+import com.youcode.YouQuiz.Service.ChatService;
 import com.youcode.YouQuiz.dto.ChatDto;
 import com.youcode.YouQuiz.entities.Chat;
 import com.youcode.YouQuiz.entities.Student;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ChatServiceImpl implements ChatService{
+public class ChatServiceImpl implements ChatService {
 
     @Autowired
     private ChatRepository chatRepository;

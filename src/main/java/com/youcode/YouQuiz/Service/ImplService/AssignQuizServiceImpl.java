@@ -2,6 +2,7 @@ package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Service.AssignQuizService;
 import com.youcode.YouQuiz.dto.AssignQuizDto;
+import com.youcode.YouQuiz.dto.TempoResponse.AssignQuizDtoResponse;
 import com.youcode.YouQuiz.entities.AssignQuiz;
 import com.youcode.YouQuiz.entities.Quiz;
 import com.youcode.YouQuiz.entities.Student;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,10 +73,10 @@ public class AssignQuizServiceImpl implements AssignQuizService {
     }
 
     @Override
-    public AssignQuizDto getOne(Long id){
+    public AssignQuizDtoResponse getOne(Long id){
         AssignQuiz assignQuiz = assignQuizRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The assignment with id " + id + " is not found"));
-        return modelMapper.map(assignQuiz, AssignQuizDto.class);
+        return modelMapper.map(assignQuiz, AssignQuizDtoResponse.class);
     }
 
     @Override
@@ -101,4 +103,38 @@ public class AssignQuizServiceImpl implements AssignQuizService {
         existingAssignQuiz = assignQuizRepository.save(existingAssignQuiz);
         return modelMapper.map(existingAssignQuiz, AssignQuizDto.class);
     }
+
+
+    @Override
+    public List<AssignQuizDto> getByStudent(Long studentId){
+        List<AssignQuiz> assignQuizs = assignQuizRepository.findByStudentId(studentId);
+
+
+        List<AssignQuizDto> assignQuizDtos = new ArrayList<>();
+
+
+        for (AssignQuiz assignQuiz : assignQuizs) {
+            AssignQuizDto assignQuizDto = new AssignQuizDto();
+
+            assignQuizDto.setQuiz_id(assignQuiz.getQuiz().getId());
+            assignQuizDto.setStudent_id(assignQuiz.getStudent().getId());
+            assignQuizDto.setScore(assignQuiz.getScore());
+            assignQuizDto.setReason(assignQuiz.getReason());
+            assignQuizDto.setResult(assignQuiz.getResult());
+            assignQuizDto.setDebutDate(assignQuiz.getDebutDate());
+            assignQuizDto.setEndDate(assignQuiz.getEndDate());
+            assignQuizDto.setId(assignQuiz.getId());
+
+            assignQuizDtos.add(assignQuizDto);
+
+            // Use studentId and quizId as needed
+        }
+
+        return assignQuizDtos;
+
+        //return assignQuizs.stream()
+             //   .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDto.class))
+             //   .collect(Collectors.toList());
+    }
+
 }

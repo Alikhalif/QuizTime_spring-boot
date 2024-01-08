@@ -2,6 +2,7 @@ package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Exception.EntityNotFoundException;
 import com.youcode.YouQuiz.dto.*;
+import com.youcode.YouQuiz.dto.TempoResponse.AssignQuizDtoResponse;
 import com.youcode.YouQuiz.entities.AssignQuiz;
 import com.youcode.YouQuiz.entities.Quiz;
 import com.youcode.YouQuiz.entities.Student;
@@ -206,7 +207,7 @@ public class AssignQuizServiceTest {
         given(assignQuizRepository.findById(assignmentID)).willReturn(Optional.of(assignQuiz));
         given(modelMapper.map(assignQuiz, AssignQuizDto.class)).willReturn(assignQuizDto);
 
-        AssignQuizDto foundAssignment = assignQuizService.getOne(assignmentID);
+        AssignQuizDtoResponse foundAssignment = assignQuizService.getOne(assignmentID);
         verify(assignQuizRepository).findById(assignmentID);
         assertThat(foundAssignment).isNotNull();
     }

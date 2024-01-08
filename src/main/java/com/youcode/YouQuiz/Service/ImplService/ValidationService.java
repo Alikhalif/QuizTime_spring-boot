@@ -1,6 +1,10 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Service.ValidationServiceImpl;
+import com.youcode.YouQuiz.dto.AnswarDto;
+import com.youcode.YouQuiz.dto.TempoResponse.AnswarDtoResponse;
+import com.youcode.YouQuiz.dto.TempoResponse.QuestionDtoResponse;
+import com.youcode.YouQuiz.dto.TempoResponse.ValidationDtoResponse;
 import com.youcode.YouQuiz.dto.ValidationDto;
 import com.youcode.YouQuiz.entities.Answar;
 import com.youcode.YouQuiz.entities.Question;
@@ -11,6 +15,9 @@ import com.youcode.YouQuiz.repositories.ValidationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ValidationService implements ValidationServiceImpl {
@@ -43,5 +50,19 @@ public class ValidationService implements ValidationServiceImpl {
         validation = validationRepository.save(validation);
         return modelMapper.map(validation, ValidationDto.class);
 
+    }
+
+
+    @Override
+    public List<ValidationDtoResponse> getValidationByQuestion(Long question_id){
+        List<Validation> validations = validationRepository.findByQuestionId(question_id);
+        return validations.stream()
+                .map(validation -> {
+                    ValidationDtoResponse validationDtoResponse = modelMapper.map(validation, ValidationDtoResponse.class);
+                    validationDtoResponse.setQuestion(modelMapper.map(validation.getQuestion(), QuestionDtoResponse.class));
+                    validationDtoResponse.setAnswar(modelMapper.map(validation.getAnswar(), AnswarDtoResponse.class));
+                    return validationDtoResponse;
+                })
+                .collect(Collectors.toList());
     }
 }

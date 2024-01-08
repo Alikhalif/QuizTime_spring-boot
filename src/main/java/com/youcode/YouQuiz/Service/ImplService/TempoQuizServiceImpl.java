@@ -1,6 +1,7 @@
 package com.youcode.YouQuiz.Service.ImplService;
 
 import com.youcode.YouQuiz.Service.TempoQuizService;
+import com.youcode.YouQuiz.dto.TempoResponse.TempoQuizResponseDto;
 import com.youcode.YouQuiz.dto.TompQuizDto;
 import com.youcode.YouQuiz.entities.Question;
 import com.youcode.YouQuiz.entities.Quiz;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TempoQuizServiceImpl implements TempoQuizService {
@@ -81,6 +84,27 @@ public class TempoQuizServiceImpl implements TempoQuizService {
 
         tompQuizUpdated = tompquizRepository.save(tompQuizUpdated);
         return modelMapper.map(tompQuizUpdated, TompQuizDto.class);
+    }
+
+
+    @Override
+    public List<TempoQuizResponseDto> findTempoByQuiz(Long quizId) {
+        List<TompQuiz> tempoQuizzes = tompquizRepository.findByQuizId(quizId);
+        List<TempoQuizResponseDto> tempoQuizResponses = new ArrayList<>();
+
+        for (TompQuiz tempoQuiz : tempoQuizzes) {
+
+            TempoQuizResponseDto tompQuizDto = new TempoQuizResponseDto();
+
+            tompQuizDto.setQuestion_text(questionRepository.getOne(tempoQuiz.getQuestion().getId()).getQuestionText());
+            tompQuizDto.setQuestion_id(tempoQuiz.getQuestion().getId());
+            tompQuizDto.setQuiz_id(tempoQuiz.getQuiz().getId());
+            tompQuizDto.setTime(tempoQuiz.getTime());
+            //TompQuizDto tempoQuizDtoResponse = modelMapper.map(tempoQuiz, TompQuizDto.class);
+            tempoQuizResponses.add(tompQuizDto);
+        }
+        System.out.println(tempoQuizResponses);
+        return tempoQuizResponses;
     }
 
 }

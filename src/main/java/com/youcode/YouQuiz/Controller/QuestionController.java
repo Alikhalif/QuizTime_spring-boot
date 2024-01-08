@@ -3,9 +3,12 @@ package com.youcode.YouQuiz.Controller;
 import com.youcode.YouQuiz.Service.ImplService.QuestionServiceImpl;
 import com.youcode.YouQuiz.Service.QuestionService;
 import com.youcode.YouQuiz.Service.TempoQuizService;
+import com.youcode.YouQuiz.Service.ValidationServiceImpl;
 import com.youcode.YouQuiz.dto.QuestionDto;
 import com.youcode.YouQuiz.dto.QuizDto;
+import com.youcode.YouQuiz.dto.TempoResponse.ValidationDtoResponse;
 import com.youcode.YouQuiz.dto.TompQuizDto;
+import com.youcode.YouQuiz.repositories.ValidationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +27,8 @@ public class QuestionController {
     private QuestionService questionService;
     @Autowired
     private TempoQuizService tempoQuizService;
+    @Autowired
+    private ValidationServiceImpl validationService;
 
 
     @PostMapping
@@ -123,4 +129,33 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+
+    @GetMapping("/temp/{id_quiz}")
+    public ResponseEntity<Map<String, Object>> getTempQuestionToQuiz(@PathVariable Long id_quiz){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", tempoQuizService.findTempoByQuiz(id_quiz));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "quiz Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/answar/{id_question}")
+    public ResponseEntity<Map<String, Object>> getAnswarForQuestion(@PathVariable Long id_question){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", validationService.getValidationByQuestion(id_question));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("error", "Question Not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }
